@@ -2,7 +2,7 @@ class inst Map {
     list keys = [];
     list values = [];
 
-    func public set(key, value) {
+    func public set<T, U>(key, value) {
         int i = 0;
         while (i < keys.len()) {
             if (keys[i] == key) {
@@ -15,7 +15,7 @@ class inst Map {
         values.push(value);
     }
 
-    func public get(key) {
+    func public get<T>(key) {
         int i = 0;
         while (i < keys.len()) {
             if (keys[i] == key) {
@@ -26,7 +26,7 @@ class inst Map {
         return null;
     }
 
-    func public has(key) -> bool {
+    func public has<T>(key) -> bool {
         int i = 0;
         while (i < keys.len()) {
             if (keys[i] == key) {
@@ -37,7 +37,7 @@ class inst Map {
         return false;
     }
 
-    func public remove(key) {
+    func public remove<T>(key) {
         int i = 0;
         while (i < keys.len()) {
             if (keys[i] == key) {
@@ -70,17 +70,17 @@ class inst Map {
 class inst Set {
     list items = [];
 
-    func public add(value) {
+    func public add<T>(value) {
         if (!has(value)) {
             items.push(value);
         }
     }
 
-    func public has(value) -> bool {
+    func public has<T>(value) -> bool {
         return items.contains(value);
     }
 
-    func public remove(value) {
+    func public remove<T>(value) {
         int i = 0;
         while (i < items.len()) {
             if (items[i] == value) {
@@ -103,7 +103,7 @@ class inst Set {
         items = [];
     }
 
-    func public union(other) -> list {
+    func public union<Set>(other) -> list {
         list result = items;
         int i = 0;
         while (i < other.size()) {
@@ -116,7 +116,7 @@ class inst Set {
         return result;
     }
 
-    func public intersection(other) -> list {
+    func public intersection<Set>(other) -> list {
         list result = [];
         int i = 0;
         while (i < items.len()) {
