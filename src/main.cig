@@ -1,0 +1,130 @@
+class inst Map {
+    list keys = [];
+    list values = [];
+
+    func public set(key, value) {
+        int i = 0;
+        while (i < keys.len()) {
+            if (keys[i] == key) {
+                values[i] = value;
+                return;
+            }
+            i += 1;
+        }
+        keys.push(key);
+        values.push(value);
+    }
+
+    func public get(key) {
+        int i = 0;
+        while (i < keys.len()) {
+            if (keys[i] == key) {
+                return values[i];
+            }
+            i += 1;
+        }
+        return null;
+    }
+
+    func public has(key) -> bool {
+        int i = 0;
+        while (i < keys.len()) {
+            if (keys[i] == key) {
+                return true;
+            }
+            i += 1;
+        }
+        return false;
+    }
+
+    func public remove(key) {
+        int i = 0;
+        while (i < keys.len()) {
+            if (keys[i] == key) {
+                keys.remove(i);
+                values.remove(i);
+                return;
+            }
+            i += 1;
+        }
+    }
+
+    func public size() -> int {
+        return keys.len();
+    }
+
+    func public keys() -> list {
+        return keys;
+    }
+
+    func public values() -> list {
+        return values;
+    }
+
+    func public clear() {
+        keys = [];
+        values = [];
+    }
+}
+
+class inst Set {
+    list items = [];
+
+    func public add(value) {
+        if (!has(value)) {
+            items.push(value);
+        }
+    }
+
+    func public has(value) -> bool {
+        return items.contains(value);
+    }
+
+    func public remove(value) {
+        int i = 0;
+        while (i < items.len()) {
+            if (items[i] == value) {
+                items.remove(i);
+                return;
+            }
+            i += 1;
+        }
+    }
+
+    func public size() -> int {
+        return items.len();
+    }
+
+    func public values() -> list {
+        return items;
+    }
+
+    func public clear() {
+        items = [];
+    }
+
+    func public union(other) -> list {
+        list result = items;
+        int i = 0;
+        while (i < other.size()) {
+            list vals = other.values();
+            if (!has(vals[i])) {
+                result.push(vals[i]);
+            }
+            i += 1;
+        }
+        return result;
+    }
+
+    func public intersection(other) -> list {
+        list result = [];
+        int i = 0;
+        while (i < items.len()) {
+            if (other.has(items[i])) {
+                result.push(items[i]);
+            }
+            i += 1;
+        }
+        return result;
+    }
+}
