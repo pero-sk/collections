@@ -165,7 +165,7 @@ class inst Set {
     }
 
     // creates a set from a list
-    func public from_list<>(source) -> Set {
+    func public from_list<list>(source) -> Set {
         Set result = Set();
         int i = 0;
         while (i < source.len()) {
