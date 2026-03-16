@@ -65,6 +65,40 @@ class inst Map {
         keys = [];
         values = [];
     }
+
+
+    // returns a list of [key, value] pairs
+    func public entries() -> list {
+        list result = [];
+        int i = 0;
+        while (i < keys.len()) {
+            list entry = [keys[i], values[i]];
+            result.push(entry);
+            i += 1;
+        }
+        return result;
+    }
+
+    // merges another map into this one
+    func public merge<Map>(other) {
+        list other_keys = other.get_keys();
+        list other_values = other.get_values();
+        int i = 0;
+        while (i < other_keys.len()) {
+            set(other_keys[i], other_values[i]);
+            i += 1;
+        }
+    }
+
+    // creates a map from 2 lists
+    func public from_lists<list, list>(keys_list, values_list) {
+        int i = 0;
+        while (i < keys_list.len()) {
+            set(keys_list[i], values_list[i]);
+            i += 1;
+        }
+    }
+
 }
 
 class inst Set {
@@ -103,12 +137,13 @@ class inst Set {
         items = [];
     }
 
+    // returns a list from two Sets' unique values
     func public union<Set>(other) -> list {
         list result = items;
         int i = 0;
         while (i < other.size()) {
             list vals = other.values();
-            if (!has(vals[i])) {
+            if (!result.has(vals[i])) {
                 result.push(vals[i]);
             }
             i += 1;
@@ -116,6 +151,7 @@ class inst Set {
         return result;
     }
 
+    // returns a list from two Sets' similar values
     func public intersection<Set>(other) -> list {
         list result = [];
         int i = 0;
@@ -126,5 +162,47 @@ class inst Set {
             i += 1;
         }
         return result;
+    }
+
+    // creates a set from a list
+    func public from_list<>(source) -> Set {
+        Set result = Set();
+        int i = 0;
+        while (i < source.len()) {
+            result.add(source[i]);
+            i += 1;
+        }
+        return result;
+    }
+
+    // returns a list from two Sets' different values
+    func public difference<Set>(other) -> list {
+        list result = [];
+        int i = 0;
+        while (i < items.len()) {
+            if (!other.has(items[i])) {
+                result.push(items[i]);
+            }
+            i += 1;
+        }
+        return result;
+    }
+
+    // checks if every item in this set is in other
+    func public is_subset<Set>(other) -> bool {
+        int i = 0;
+        while (i < items.len()) {
+            if (!other.has(items[i])) {
+                return false;
+            }
+            i += 1;
+        }
+        return true;
+    }
+
+    // checks if this set contains every item in other
+    func public is_superset<Set>(other) -> bool {
+        Set x = from_list(items);
+        return other.is_subset(x);
     }
 }
