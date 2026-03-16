@@ -53,11 +53,11 @@ class inst Map {
         return keys.len();
     }
 
-    func public keys() -> list {
+    func public get_keys() -> list {
         return keys;
     }
 
-    func public values() -> list {
+    func public get_values() -> list {
         return values;
     }
 
